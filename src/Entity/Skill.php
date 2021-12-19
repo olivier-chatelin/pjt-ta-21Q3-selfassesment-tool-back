@@ -29,6 +29,11 @@ class Skill
      */
     private $objectives;
 
+    /**
+     * @ORM\Column(type="string", length=7)
+     */
+    private $color;
+
 
 
     public function __construct()
@@ -76,6 +81,18 @@ class Skill
         if ($this->objectives->removeElement($objective)) {
             $objective->removeSkill($this);
         }
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(string $color): self
+    {
+        $this->color = $color;
 
         return $this;
     }
