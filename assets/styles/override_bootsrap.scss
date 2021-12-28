@@ -1,0 +1,10 @@
+
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+$custom-colors: (
+        "wild-yellow": $wild-yellow,
+        "wild-dark": $wild-dark,
+        "wild-grey": $wild-grey,
+);
+$theme-colors: map-merge($custom-colors, $theme-colors);
+
