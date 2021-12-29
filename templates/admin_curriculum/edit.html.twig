@@ -1,11 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Curriculum{% endblock %}
+{% block title %}Edit Curriculum{% endblock %}
 
 {% block body %}
     <div class="container w-75">
-        <h1>Create new Curriculum</h1>
-        {{ include('curriculum/_form.html.twig') }}
+        <h1>Edit Curriculum</h1>
+
+        {{ include('admin_curriculum/_form.html.twig', {'button_label': 'Update'}) }}
+
         <a href="{{ path('admin_curriculum') }}">back to list</a>
+
     </div>
 {% endblock %}

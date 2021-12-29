@@ -13,18 +13,9 @@ use Symfony\Component\Routing\Annotation\Route;
     /**
      * @Route("/admin", name="admin_")
      */
-class AdminController extends AbstractController
+class AdminPrivilegeController extends AbstractController
 {
-    /**
-     * @Route("/", name="home")
-     */
-    public function index(): Response
-    {
-        $user = $this->getUser();
-        return $this->render('admin/index.html.twig', [
-            'controller_name' => 'AdminController',
-        ]);
-    }
+
     /**
      * @Route("/privileges", name="privileges")
      * @IsGranted("ROLE_ADMIN")
@@ -39,7 +30,7 @@ class AdminController extends AbstractController
             }
         }
         unset($users[$keyToRemove]);
-        return $this->render('admin/privileges.html.twig', [
+        return $this->render('admin_privileges/privileges.html.twig', [
             'users' => $users,
             'active' => 'privileges'
         ]);
