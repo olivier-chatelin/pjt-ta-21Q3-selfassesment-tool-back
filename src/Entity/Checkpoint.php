@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=CheckpointRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
 class Checkpoint implements \JsonSerializable
 {
@@ -35,10 +36,6 @@ class Checkpoint implements \JsonSerializable
      */
     private $duration;
 
-    /**
-     * @ORM\Column(type="array")
-     */
-    private $globalSkills = [];
 
     /**
      * @ORM\OneToMany(targetEntity=Objective::class, mappedBy="checkpoint", orphanRemoval=true)
@@ -50,6 +47,16 @@ class Checkpoint implements \JsonSerializable
      * @ORM\JoinColumn(nullable=false)
      */
     private $curriculum;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
 
     public function __construct()
     {
@@ -151,5 +158,48 @@ class Checkpoint implements \JsonSerializable
         $this->curriculum = $curriculum;
 
         return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Gets triggered only on insert
+     * @ORM\PrePersist
+     */
+    public function onPrePersist()
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
+
+    /**
+     * Gets triggered only on update
+     * @ORM\PreUpdate()
+     */
+    public function onPreUpdate()
+    {
+        $this->updatedAt = new \DateTime();
     }
 }

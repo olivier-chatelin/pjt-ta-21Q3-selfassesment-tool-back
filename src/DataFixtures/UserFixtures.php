@@ -25,6 +25,25 @@ class UserFixtures extends Fixture
         $super->setRoles(["ROLE_SUPER_ADMIN"]);
         $super->setIsVerified(true);
         $manager->persist($super);
+
+        $olivier= new User();
+        $olivier->setFirstname('Olivier');
+        $olivier->setLastname('Châtelin');
+        $olivier->setEmail('olivier.chatelin@gmail.com');
+        $olivier->setPassword($this->hasher->hashPassword($olivier, '123456'));
+        $olivier->setRoles(["ROLE_USER"]);
+        $olivier->setIsVerified(true);
+        $manager->persist($olivier);
+
+        $olivier= new User();
+        $olivier->setFirstname('Simple');
+        $olivier->setLastname('Admin');
+        $olivier->setEmail('admin.admin@gmail.com');
+        $olivier->setPassword($this->hasher->hashPassword($olivier, '123456'));
+        $olivier->setRoles(["ROLE_ADMIN"]);
+        $olivier->setIsVerified(true);
+        $manager->persist($olivier);
+
         $manager->flush();
     }
 }

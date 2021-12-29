@@ -11,17 +11,18 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/curriculum")
+ * @Route("admin/curriculum", name="admin_")
  */
 class CurriculumController extends AbstractController
 {
     /**
-     * @Route("/", name="curriculum_index", methods={"GET"})
+     * @Route("/", name="curriculum", methods={"GET"})
      */
     public function index(CurriculumRepository $curriculumRepository): Response
     {
         return $this->render('curriculum/index.html.twig', [
             'curricula' => $curriculumRepository->findAll(),
+            'active' => 'curricula'
         ]);
     }
 
@@ -39,24 +40,16 @@ class CurriculumController extends AbstractController
             $entityManager->persist($curriculum);
             $entityManager->flush();
 
-            return $this->redirectToRoute('curriculum_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin_curriculum', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('curriculum/new.html.twig', [
             'curriculum' => $curriculum,
             'form' => $form,
+            'active' => 'curricula'
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="curriculum_show", methods={"GET"})
-     */
-    public function show(Curriculum $curriculum): Response
-    {
-        return $this->render('curriculum/show.html.twig', [
-            'curriculum' => $curriculum,
-        ]);
-    }
 
     /**
      * @Route("/{id}/edit", name="curriculum_edit", methods={"GET","POST"})
@@ -69,12 +62,13 @@ class CurriculumController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('curriculum_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin_curriculum', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('curriculum/edit.html.twig', [
             'curriculum' => $curriculum,
             'form' => $form,
+            'active' => 'curricula'
         ]);
     }
 
@@ -89,6 +83,6 @@ class CurriculumController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('curriculum_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('admin_curriculum', [], Response::HTTP_SEE_OTHER);
     }
 }

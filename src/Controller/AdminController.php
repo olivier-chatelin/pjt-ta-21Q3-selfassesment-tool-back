@@ -41,6 +41,7 @@ class AdminController extends AbstractController
         unset($users[$keyToRemove]);
         return $this->render('admin/privileges.html.twig', [
             'users' => $users,
+            'active' => 'privileges'
         ]);
     }
     /**

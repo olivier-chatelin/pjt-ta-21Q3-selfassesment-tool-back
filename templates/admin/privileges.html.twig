@@ -3,24 +3,30 @@
 {% block title %}User Privileges{% endblock %}
 {% block body %}
     <table class="table table-striped">
-        <tr>
-            <th>Name</th>
-            <th>is Admin</th>
-            <th>Action</th>
-        </tr>
-        {% for user in users %}
+        <h1 class="h1">Users' privileges</h1>
+        <thead>
             <tr>
-                <td>{{ user.getFullName }}</td>
-                {% if 'ROLE_ADMIN'  in user.roles %}
-                <td>Yes</td>
-                <td><a href="{{ path('admin_privileges_update',{id:user.id}) }}" class="btn btn-primary text-white">Remove Admin Privilege</a></td>
-                {% else %}
-                <td>No</td>
-                <td><a href="{{ path('admin_privileges_update',{id:user.id}) }}" class="btn btn-primary text-white">Give Admin Privilege</a></td>
-                {% endif %}
-
+                <th>Name</th>
+                <th>is Admin</th>
+                <th>Action</th>
             </tr>
-        {% endfor%}
+        </thead>
+        <tbody>
+            
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.getFullName }}</td>
+                    {% if 'ROLE_ADMIN'  in user.roles %}
+                    <td>Yes</td>
+                    <td><a href="{{ path('admin_privileges_update',{id:user.id}) }}" class="btn btn-primary text-white">Remove Admin Privilege</a></td>
+                    {% else %}
+                    <td>No</td>
+                    <td><a href="{{ path('admin_privileges_update',{id:user.id}) }}" class="btn btn-primary text-white">Give Admin Privilege</a></td>
+                    {% endif %}
+
+                </tr>
+            {% endfor%}
+        </tbody>
     </table>
 
 
