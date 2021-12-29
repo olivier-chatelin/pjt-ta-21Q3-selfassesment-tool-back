@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Checkpoint{% endblock %}
+
+{% block body %}
+    <h1>Create new Checkpoint</h1>
+
+    {{ include('admin_checkpoint/_form.html.twig') }}
+
+    <a href="{{ path('admin_index') }}">back to list</a>
+{% endblock %}

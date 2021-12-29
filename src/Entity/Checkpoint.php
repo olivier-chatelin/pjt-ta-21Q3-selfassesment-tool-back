@@ -202,4 +202,17 @@ class Checkpoint implements \JsonSerializable
     {
         $this->updatedAt = new \DateTime();
     }
+
+    public function getGlobalSkills(): Collection
+    {
+        $globalSkills = [];
+        foreach ($this->Objectives as $objective) {
+            foreach ($objective->getSkills() as $skill){
+                $globalSkills[] = $skill;
+            }
+        }
+        return array_unique($globalSkills);
+
+
+    }
 }
