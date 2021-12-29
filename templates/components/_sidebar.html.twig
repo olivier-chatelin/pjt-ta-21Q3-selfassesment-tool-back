@@ -1,0 +1,23 @@
+<div class="sidebar">
+    <a  href="{{ path('admin_home') }}">
+        <img class="logo" src="{{ asset('build/images/logo.png' )}}" alt="" width="100px">
+    </a>
+    <hr>
+    <ul class="side-nav">
+        <li><a class="side-link" href=""><i class="far fa-clipboard"></i> Checkpoints</a></li>
+
+    </ul>
+    <hr>
+    {% if app.user %}
+    <div class="dropdown">
+        <span class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            👋 Hello {{ app.user.getFullName }}
+        </span>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="{{ path('app_logout') }}">Log Out</a></li>
+        </ul>
+    </div>
+    {% else %}
+        <a class="side-link" href="{{ path('app_login') }}">Sign in</a>
+    {% endif %}
+</div>

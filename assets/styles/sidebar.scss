@@ -1,0 +1,20 @@
+.sidebar{
+  display: flex;
+  flex-direction: column;
+  width: 15%;
+  background: $primary;
+  color: #fff;
+  min-height: 100vh;
+  padding-left: 10px;
+    .logo{
+      margin: 10px;
+    }
+  .side-nav{
+    min-height: 80vh;
+    list-style: none;
+  }
+  .side-link{
+    color: white;
+    text-decoration: none;
+  }
+}

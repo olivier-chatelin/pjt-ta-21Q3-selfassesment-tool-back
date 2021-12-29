@@ -15,8 +15,13 @@
     {% endblock %}
 </head>
 <body>
-{% block header %}{% include 'components/_navbar.html.twig' %}{% endblock %}
-{% block body %}{% endblock %}
+    <div class="d-flex">
+        {% include 'components/_sidebar.html.twig' %}
+        <div class="container w-50">
+            {% block body %}{% endblock %}
+        </div>
+    </div>
+
 </body>
 </html>
 
