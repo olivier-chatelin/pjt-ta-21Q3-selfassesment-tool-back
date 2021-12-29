@@ -1,40 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Curricula{% endblock %}
+{% block title %}Skill index{% endblock %}
 
 {% block body %}
     <div class="container w-75">
-        <h1>Curricula </h1>
-
+        <h1>Skill index</h1>
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Name</th>
                     {% if is_granted('ROLE_ADMIN') %}
-                    <th colspan="2">Actions</th>
+                    <th>Actions</th>
                     {% endif %}
                 </tr>
             </thead>
             <tbody>
-            {% for curriculum in curricula %}
+            {% for skill in skills %}
                 <tr>
-                    <td>{{ curriculum.name }}</td>
+                    <td style="background-color: {{ skill.color }}">{{ skill.name }}</td>
                     {% if is_granted('ROLE_ADMIN') %}
                     <td class="d-flex ">
-                        <a class="btn btn-wild-yellow " href="{{ path('admin_curriculum_edit', {'id': curriculum.id}) }}">Update</a>
-                        {{ include('admin_curriculum/_delete_form.html.twig') }}
+                        <a class="btn btn-wild-yellow " href="{{ path('admin_skill_edit', {'id': skill.id}) }}">Update</a>
+                        {{ include('admin_skill/_delete_form.html.twig') }}
                     </td>
                     {% endif %}
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="2">no curriculum found</td>
+                    <td colspan="2">no records found</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
         {% if is_granted('ROLE_ADMIN') %}
-        <a class="btn btn-primary text-white" href="{{ path('admin_curriculum_new') }}" >Create new</a>
+        <a class="btn btn-primary text-white" href="{{ path('admin_skill_new') }}">Create new</a>
         {% endif %}
     </div>
 {% endblock %}

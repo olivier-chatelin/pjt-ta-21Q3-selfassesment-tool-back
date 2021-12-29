@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Skill{% endblock %}
+
+{% block body %}
+    <div class="container w-75">
+        <h1>Update Skill</h1>
+
+        {{ include('admin_skill/_form.html.twig', {'button_label': 'Update'}) }}
+
+        <a href="{{ path('admin_skill_index') }}">back to list</a>
+    </div>
+
+{% endblock %}
