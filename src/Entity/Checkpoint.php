@@ -29,10 +29,6 @@ class Checkpoint implements \JsonSerializable
      */
     private $number;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $cursus;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -48,6 +44,12 @@ class Checkpoint implements \JsonSerializable
      * @ORM\OneToMany(targetEntity=Objective::class, mappedBy="checkpoint", orphanRemoval=true)
      */
     private $Objectives;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Curriculum::class, inversedBy="checkpoints")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $curriculum;
 
     public function __construct()
     {
@@ -83,17 +85,6 @@ class Checkpoint implements \JsonSerializable
         return $this;
     }
 
-    public function getCursus(): ?string
-    {
-        return $this->cursus;
-    }
-
-    public function setCursus(string $cursus): self
-    {
-        $this->cursus = $cursus;
-
-        return $this;
-    }
 
     public function getDuration(): ?string
     {
@@ -107,17 +98,6 @@ class Checkpoint implements \JsonSerializable
         return $this;
     }
 
-    public function getGlobalSkills(): ?array
-    {
-        return $this->globalSkills;
-    }
-
-    public function setGlobalSkills(array $globalSkills): self
-    {
-        $this->globalSkills = $globalSkills;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Objective[]
@@ -155,10 +135,21 @@ class Checkpoint implements \JsonSerializable
             "id"=>$this->id,
             "name"=>$this->name,
             "number"=>$this->number,
-            "cursus"=>$this->cursus,
             "duration"=>$this->duration,
-            "globalSkills"=>$this->globalSkills,
+            "curriculum" => $this->curriculum,
             "objectives"=>$this->getObjectives(),
         );
+    }
+
+    public function getCurriculum(): ?Curriculum
+    {
+        return $this->curriculum;
+    }
+
+    public function setCurriculum(?Curriculum $curriculum): self
+    {
+        $this->curriculum = $curriculum;
+
+        return $this;
     }
 }
