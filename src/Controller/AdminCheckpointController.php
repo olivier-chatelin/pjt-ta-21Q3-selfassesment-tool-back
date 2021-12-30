@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Checkpoint;
+use App\Entity\Objective;
 use App\Form\CheckpointType;
 use App\Repository\CheckpointRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,7 +41,7 @@ class AdminCheckpointController extends AbstractController
             $entityManager->persist($checkpoint);
             $entityManager->flush();
 
-            return $this->redirectToRoute('admin_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin_home', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('admin_checkpoint/new.html.twig', [

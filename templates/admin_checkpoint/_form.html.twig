@@ -1,4 +1,10 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_row(form.curriculum) }}
+    {{ form_row(form.number) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.duration) }}
+    <h3 class="h3">Objectives</h3>
+    <ul class="objectives" id="objective-container" data-prototype="{{ form_widget(form.objectives.vars.prototype)|e('html_attr') }}"></ul>
+    <button type="button" id="button-objective" class="add_item_link btn btn-primary text-white" data-collection-holder-class="objectives">Add an objective</button>
+    <button type="submit" class="btn btn-primary text-white">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

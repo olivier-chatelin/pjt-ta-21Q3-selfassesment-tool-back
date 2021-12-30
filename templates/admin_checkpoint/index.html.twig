@@ -3,7 +3,7 @@
 {% block title %}Checkpoint index{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="w-100">
         <h1>Checkpoints</h1>
         <table class="table table-striped">
             <thead>
@@ -25,9 +25,15 @@
                     <td>{{ checkpoint.number }}</td>
                     <td>{{ checkpoint.name }}</td>
                     <td>{{ checkpoint.duration }}</td>
-                    <td>{{ checkpoint.globalSkills }}</td>
-                    <td>{{ checkpoint.createdAt ? checkpoint.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                    <td>{{ checkpoint.updatedAt ? checkpoint.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>
+                        {% for skill in checkpoint.globalSkills %}
+                        {{ skill.name }}
+                        {% else %}
+                        No skill found
+                        {% endfor %}
+                    </td>
+                    <td>{{ checkpoint.createdAt ? checkpoint.createdAt|date('Y-m-d ') : '' }}</td>
+                    <td>{{ checkpoint.updatedAt ? checkpoint.updatedAt|date('Y-m-d ') : '' }}</td>
                     <td>
                         <a href="{{ path('admin_show', {'id': checkpoint.id}) }}">show</a>
                         <a href="{{ path('admin_edit', {'id': checkpoint.id}) }}">edit</a>

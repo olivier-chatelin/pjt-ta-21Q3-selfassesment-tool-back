@@ -38,7 +38,7 @@ class Checkpoint implements \JsonSerializable
 
 
     /**
-     * @ORM\OneToMany(targetEntity=Objective::class, mappedBy="checkpoint", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Objective::class, mappedBy="checkpoint",cascade={"persist"} )
      */
     private $Objectives;
 
@@ -205,13 +205,15 @@ class Checkpoint implements \JsonSerializable
 
     public function getGlobalSkills(): Collection
     {
-        $globalSkills = [];
+        $globalSkills = new ArrayCollection();
         foreach ($this->Objectives as $objective) {
             foreach ($objective->getSkills() as $skill){
-                $globalSkills[] = $skill;
+                if(!$globalSkills->contains($skill)) {
+                    $globalSkills->add($skill);
+                }
             }
         }
-        return array_unique($globalSkills);
+        return $globalSkills;
 
 
     }

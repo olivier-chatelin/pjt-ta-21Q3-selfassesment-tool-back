@@ -1,11 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}New Checkpoint{% endblock %}
-
+    {% block javascripts %}
+        {{ parent() }}
+        {{ encore_entry_script_tags('form') }}
+    {% endblock %}
 {% block body %}
-    <h1>Create new Checkpoint</h1>
+    <div class="container w-50">
 
-    {{ include('admin_checkpoint/_form.html.twig') }}
+        <h1>Create new Checkpoint</h1>
 
-    <a href="{{ path('admin_index') }}">back to list</a>
+        {{ include('admin_checkpoint/_form.html.twig') }}
+
+        <a href="{{ path('admin_home') }}">back to list</a>
+    </div>
 {% endblock %}
