@@ -5,7 +5,7 @@
     {{ form_row(form.name) }}
     {{ form_row(form.duration) }}
     <h3 class="h3">Objectives</h3>
-    <ul class="objectives accordion" id="objective-container" data-prototype="{{ form_widget(form.objectives.vars.prototype)|e('html_attr') }}"></ul>
+    <ul class="objectives accordion accordion" id="objective-container" data-prototype="{{ form_widget(form.objectives.vars.prototype)|e('html_attr') }}"></ul>
     <button type="button" id="button-objective" class="col-5 add_item_link btn btn-primary text-white m-3" data-collection-holder-class="objectives">Add an objective</button>
     <button type="submit" class="col-5 btn btn-primary text-white m-3">{{ button_label|default('Save') }}</button>
 </div>

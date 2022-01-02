@@ -11,6 +11,14 @@ const regex = /__name__/g
 button.addEventListener('click',(e)=>{
     e.preventDefault();
     index ++;
+    let shows = document.getElementsByClassName('show');
+    for (let show of shows) {
+        show.classList.remove('show');
+    }
+    let buttonCollapse = document.getElementsByClassName('accordion-button');
+    for (let button of buttonCollapse) {
+        button.classList.add('collapsed');
+    }
     let li = document.createElement('li');
     li.classList.add('accordion-item')
     let accordionTitle = document.createElement('h4');
@@ -29,6 +37,7 @@ button.addEventListener('click',(e)=>{
     accordionCollapse.id = `collapse${index}`;
     accordionCollapse.classList.add('accordion-collapse','collapse','show', 'm-3');
     accordionCollapse.innerHTML = newForm;
+    accordionCollapse.dataset.bsParent='#objective-container'
     li.appendChild(accordionCollapse);
     objectiveContainer.appendChild(li);
     let hiddenInput = document.getElementById(`checkpoint_objectives_objective${index}_number`);
