@@ -32,7 +32,7 @@ class Objective implements \JsonSerializable
 
     /**
      * @ORM\ManyToOne(targetEntity=Checkpoint::class, inversedBy="Objectives")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $checkpoint;
 

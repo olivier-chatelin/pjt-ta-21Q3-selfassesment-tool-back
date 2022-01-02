@@ -26,11 +26,11 @@
                     <td>{{ checkpoint.name }}</td>
                     <td>{{ checkpoint.duration }}</td>
                     <td>
-                        {% for skill in checkpoint.globalSkills %}
-                        {{ skill.name }}
-                        {% else %}
+{#                        {% for skill in checkpoint.globalSkills %}#}
+{#                        {{ skill.name }}#}
+{#                        {% else %}#}
                         No skill found
-                        {% endfor %}
+{#                        {% endfor %}#}
                     </td>
                     <td>{{ checkpoint.createdAt ? checkpoint.createdAt|date('Y-m-d ') : '' }}</td>
                     <td>{{ checkpoint.updatedAt ? checkpoint.updatedAt|date('Y-m-d ') : '' }}</td>

@@ -5,14 +5,14 @@
 {% block body %}
     <h1>Checkpoint</h1>
 
-    <table class="table">
+    <table class="table table-striped">
         <tbody>
             <tr>
                 <th>Name</th>
                 <td>{{ checkpoint.name }}</td>
             </tr>
             <tr>
-                <th>CHeckpoint n°</th>
+                <th>Checkpoint n°</th>
                 <td>{{ checkpoint.number }}</td>
             </tr>
             <tr>
@@ -27,10 +27,18 @@
                 <th>UpdatedAt</th>
                 <td>{{ checkpoint.updatedAt ? checkpoint.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
+            {% for objective in checkpoint.objectives %}
+                <tr>
+                    <th>Objective Name</th>
+                    <td>{{ objective.description }}</td>
+                </tr>
+            {% else %}
+                No objective found
+            {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('admin_index') }}">back to list</a>
+    <a href="{{ path('admin_home') }}">back to list</a>
 
     <a href="{{ path('admin_edit', {'id': checkpoint.id}) }}">edit</a>
 
