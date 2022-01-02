@@ -29,7 +29,7 @@
             </tr>
             {% for objective in checkpoint.objectives %}
                 <tr>
-                    <th>Objective Name</th>
+                    <th>Objective n°{{ objective.number }}</th>
                     <td>{{ objective.description }}</td>
                 </tr>
             {% else %}
