@@ -20,6 +20,11 @@ class SkillFixtures extends Fixture
         $skill->setColor('#C71585');
         $manager->persist($skill);
 
+        $skill = new Skill();
+        $skill->setName('Skill Test 1');
+        $skill->setColor('#F76C6C');
+        $manager->persist($skill);
+
         $manager->flush();
     }
 }

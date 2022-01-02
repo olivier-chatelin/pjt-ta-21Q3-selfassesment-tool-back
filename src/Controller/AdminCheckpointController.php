@@ -75,7 +75,7 @@ class AdminCheckpointController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_checkpoint_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin_home', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('admin_checkpoint/edit.html.twig', [
