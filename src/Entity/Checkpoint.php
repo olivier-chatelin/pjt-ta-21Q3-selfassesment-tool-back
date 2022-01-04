@@ -58,6 +58,11 @@ class Checkpoint implements \JsonSerializable
      */
     private $updatedAt;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isVisible;
+
     public function __construct()
     {
         $this->Objectives = new ArrayCollection();
@@ -216,5 +221,17 @@ class Checkpoint implements \JsonSerializable
         return $globalSkills;
 
 
+    }
+
+    public function getIsVisible(): ?bool
+    {
+        return $this->isVisible;
+    }
+
+    public function setIsVisible(bool $isVisible): self
+    {
+        $this->isVisible = $isVisible;
+
+        return $this;
     }
 }

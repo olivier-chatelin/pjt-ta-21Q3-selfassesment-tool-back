@@ -28,6 +28,7 @@ class CheckpointType extends AbstractType
             ->add('name',TextType::class,[
                 'label' => 'Title'
             ])
+            ->add('isVisible')
             ->add('duration',TextType::class,[
                 'label'=>'Duration (h:mm)'
             ])
