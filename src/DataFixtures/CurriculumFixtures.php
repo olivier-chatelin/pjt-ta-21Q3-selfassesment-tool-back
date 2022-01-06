@@ -13,10 +13,12 @@ class CurriculumFixtures extends Fixture
         $cursus = new Curriculum();
         $cursus->setName('PHP');
         $manager->persist($cursus);
+        $this->addReference('php',$cursus);
 
         $cursus = new Curriculum();
         $cursus->setName('JS');
         $manager->persist($cursus);
+        $this->addReference('js',$cursus);
 
 
         $manager->flush();

@@ -41,9 +41,15 @@ class Curriculum
      */
     private $updatedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Instructor::class, mappedBy="Curriculum")
+     */
+    private $instructors;
+
     public function __construct()
     {
         $this->checkpoints = new ArrayCollection();
+        $this->instructors = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -133,5 +139,35 @@ class Curriculum
     public function onPreUpdate()
     {
         $this->updatedAt = new \DateTime();
+    }
+
+    /**
+     * @return Collection|Instructor[]
+     */
+    public function getInstructors(): Collection
+    {
+        return $this->instructors;
+    }
+
+    public function addInstructor(Instructor $instructor): self
+    {
+        if (!$this->instructors->contains($instructor)) {
+            $this->instructors[] = $instructor;
+            $instructor->setCurriculum($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInstructor(Instructor $instructor): self
+    {
+        if ($this->instructors->removeElement($instructor)) {
+            // set the owning side to null (unless already changed)
+            if ($instructor->getCurriculum() === $this) {
+                $instructor->setCurriculum(null);
+            }
+        }
+
+        return $this;
     }
 }
