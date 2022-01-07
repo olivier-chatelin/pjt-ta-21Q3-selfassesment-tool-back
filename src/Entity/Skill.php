@@ -26,7 +26,7 @@ class Skill
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Objective::class, mappedBy="skills")
+     * @ORM\ManyToMany(targetEntity=Objective::class, mappedBy="skills",cascade={"persist"})
      * @ORM\Column (nullable=true)
      */
     private $objectives;

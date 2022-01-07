@@ -37,7 +37,7 @@ class Objective implements \JsonSerializable
     private $checkpoint;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Skill::class, inversedBy="objectives")
+     * @ORM\ManyToMany(targetEntity=Skill::class, inversedBy="objectives" ,cascade={"persist"})
      */
     private $skills;
 
