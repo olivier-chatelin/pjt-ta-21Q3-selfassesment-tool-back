@@ -145,11 +145,11 @@ class Checkpoint implements \JsonSerializable
     {
         return array(
             "id"=>$this->id,
-            "name"=>$this->name,
             "number"=>$this->number,
+            "name"=>$this->name,
             "duration"=>$this->duration,
-            "curriculum" => $this->curriculum,
-            "objectives"=>$this->getObjectives(),
+            "curriculum" => $this->curriculum->getName(),
+            "globalSkills" => $this->getGlobalSkills()
         );
     }
 
@@ -208,13 +208,13 @@ class Checkpoint implements \JsonSerializable
         $this->updatedAt = new \DateTime();
     }
 
-    public function getGlobalSkills(): Collection
+    public function getGlobalSkills(): array
     {
-        $globalSkills = new ArrayCollection();
+        $globalSkills = [];
         foreach ($this->Objectives as $objective) {
             foreach ($objective->getSkills() as $skill){
-                if(!$globalSkills->contains($skill)) {
-                    $globalSkills->add($skill);
+                if(!in_array($skill->getName(),$globalSkills)) {
+                    $globalSkills[] = $skill->getName();
                 }
             }
         }

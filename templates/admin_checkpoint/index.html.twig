@@ -31,7 +31,7 @@
                     <td>
 
                         {% for skill in checkpoint.globalSkills %}
-                        <span>{{- skill.name -}}{{ loop.revindex0==1?' and ':loop.last?'. ':', ' }}</span>
+                        <span>{{- skill -}}{{ loop.revindex0==1?' and ':loop.last?'. ':', ' }}</span>
                         {% else %}
                         No skill found.
                         {% endfor %}

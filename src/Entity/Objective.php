@@ -127,15 +127,10 @@ class Objective implements \JsonSerializable
     }
     public function jsonSerialize()
     {
-        $checkpoints = [];
-        foreach ($this->checkpoint as $checkpoint) {
-            dump($checkpoint);die();
-        }
         return array(
             "objective_id"=>$this->id,
             "description"=>$this->description,
             "isBonus"=>$this->isBonus,
-            "checkpoints"=>$checkpoints
         );
     }
 

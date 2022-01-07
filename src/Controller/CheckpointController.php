@@ -21,7 +21,9 @@ class CheckpointController extends AbstractController
         $checkpoints = $checkpointRepository->findAll();
         $encodedCheckpoints = [];
         foreach ($checkpoints as $checkpoint){
-            $encodedCheckpoints[] =  $checkpoint->jsonSerialize();
+            if($checkpoint->getIsVisible()) {
+                $encodedCheckpoints[] =  $checkpoint->jsonSerialize();
+            }
         }
         return new JsonResponse($encodedCheckpoints,200,['Access-Control-Allow-Origin' => '*']);
     }
@@ -31,12 +33,14 @@ class CheckpointController extends AbstractController
     public function show( ObjectiveRepository $objectiveRepository, CheckpointRepository $checkpointRepository,Checkpoint $checkpoint): Response
     {
         $objectives = $objectiveRepository->findBy(['checkpoint'=>$checkpoint]);
-        dump($checkpoint);
         $jsonResponseObjectives = [];
         foreach ($objectives as $objective){
             $jsonResponseSkills = [];
             foreach ($objective->getSkills() as $skill){
-                $jsonResponseSkills[] = ["name"=>$skill->getName()];
+                $jsonResponseSkills[] = [
+                    "name"=>$skill->getName(),
+                    "color" => $skill->getColor()
+                    ];
             }
             $jsonResponseObjectives[] = [
                 "id"=>$objective->getId(),
@@ -48,10 +52,11 @@ class CheckpointController extends AbstractController
         }
         $jsonObject = [
             'id'=>$checkpoint->getId(),
-            'title'=>$checkpoint->getName(),
+            'curriculum'=>$checkpoint->getCurriculum()->getName(),
             'number'=>$checkpoint->getNumber(),
-            'cursus'=>$checkpoint->getCursus(),
+            'name'=>$checkpoint->getName(),
             'duration'=>$checkpoint->getDuration(),
+            'globalSkills' => $checkpoint->getGlobalSkills()[0],
             'objectives'=>$jsonResponseObjectives,
 
         ];
