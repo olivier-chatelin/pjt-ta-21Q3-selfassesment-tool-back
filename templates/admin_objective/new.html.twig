@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Objective{% endblock %}
+
+{% block body %}
+    <div class="container w-50">
+
+        <h1>Create new Objective for Checkpoint n°{{ checkpoint.number }} {{ checkpoint.curriculum.name }}</h1>
+
+        {{ include('admin_objective/_form.html.twig') }}
+
+        <a href="{{ path('admin_show',{id:checkpoint.id}) }}">back to list</a>
+    </div>
+{% endblock %}

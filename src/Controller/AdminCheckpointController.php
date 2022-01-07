@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Checkpoint;
 use App\Entity\Objective;
 use App\Form\CheckpointType;
+use App\Form\EditCheckpointType;
 use App\Repository\CheckpointRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -55,10 +57,13 @@ class AdminCheckpointController extends AbstractController
     /**
      * @Route("/{id}", name="admin_show", methods={"GET"})
      */
-    public function show(Checkpoint $checkpoint): Response
+    public function show(Checkpoint $checkpoint, ManagerRegistry $managerRegistry): Response
     {
+        $objectiveRepository = $managerRegistry->getRepository(Objective::class);
+        $objectives = $objectiveRepository->findOrderedByNumber($checkpoint);
         return $this->render('admin_checkpoint/show.html.twig', [
             'checkpoint' => $checkpoint,
+            'objectives' => $objectives,
             'active' => 'checkpoints'
 
         ]);
@@ -69,7 +74,7 @@ class AdminCheckpointController extends AbstractController
      */
     public function edit(Request $request, Checkpoint $checkpoint): Response
     {
-        $form = $this->createForm(CheckpointType::class, $checkpoint);
+        $form = $this->createForm(EditCheckpointType::class, $checkpoint);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -97,6 +102,6 @@ class AdminCheckpointController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('admin_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('admin_home', [], Response::HTTP_SEE_OTHER);
     }
 }

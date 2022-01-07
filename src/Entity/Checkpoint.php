@@ -38,7 +38,7 @@ class Checkpoint implements \JsonSerializable
 
 
     /**
-     * @ORM\OneToMany(targetEntity=Objective::class, mappedBy="checkpoint",cascade={"persist"} )
+     * @ORM\OneToMany(targetEntity=Objective::class, mappedBy="checkpoint",cascade={"persist","remove"} )
      */
     private $Objectives;
 

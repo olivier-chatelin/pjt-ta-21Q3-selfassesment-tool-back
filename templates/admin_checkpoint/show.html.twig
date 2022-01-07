@@ -1,46 +1,82 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Checkpoint{% endblock %}
+{% block title %}Checkpoint index{% endblock %}
 
 {% block body %}
-    <h1>Checkpoint</h1>
+    <div class="container">
+        <h1>Checkpoint n° {{ checkpoint.number }} {{ checkpoint.curriculum.name }}</h1>
 
-    <table class="table table-striped">
-        <tbody>
+        <table class="table table-striped">
+            <thead>
             <tr>
+                <th>Curriculum</th>
+                <th>N°</th>
+                <th>Visible?</th>
                 <th>Name</th>
-                <td>{{ checkpoint.name }}</td>
-            </tr>
-            <tr>
-                <th>Checkpoint n°</th>
-                <td>{{ checkpoint.number }}</td>
-            </tr>
-            <tr>
                 <th>Duration</th>
-                <td>{{ checkpoint.duration }}</td>
+                <th class>Global Skills</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th>Actions</th>
             </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ checkpoint.createdAt ? checkpoint.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ checkpoint.updatedAt ? checkpoint.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            {% for objective in checkpoint.objectives %}
+            </thead>
+            <tbody>
                 <tr>
-                    <th>Objective n°{{ objective.number }}</th>
-                    <td>{{ objective.description }}</td>
+                    <td>{{ checkpoint.curriculum.name }}</td>
+                    <td>{{ checkpoint.number }}</td>
+                    <td>{{ checkpoint.isVisible? "Yes":"No" }}</td>
+                    <td>{{ checkpoint.name }}</td>
+                    <td>{{ checkpoint.duration }}</td>
+                    <td>
+
+                        {% for skill in checkpoint.globalSkills %}
+                            <span>{{- skill.name -}}{{ loop.revindex0==1?' and ':loop.last?'. ':', ' }}</span>
+                        {% else %}
+                            No skill found.
+                        {% endfor %}
+                    </td>
+
+                    <td>{{ checkpoint.createdAt ? checkpoint.createdAt|date('Y-m-d ') : '' }}</td>
+                    <td>{{ checkpoint.updatedAt ? checkpoint.updatedAt|date('Y-m-d ') : '' }}</td>
+                    <td >
+                        <a class="btn btn-wild-yellow w-100 mb-2" href="{{ path('admin_edit', {'id': checkpoint.id}) }}">Update</a>
+                    </td>
                 </tr>
+            </tbody>
+        </table>
+        <h2>Checkpoint n° {{ checkpoint.number }} {{ checkpoint.curriculum.name }} objectives</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                  <th>N°</th>
+                  <th>Bonus?</th>
+                  <th>Title</th>
+                  <th>Skills</th>
+                  <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for objective in objectives %}
+            <tr>
+                <td>{{ objective.number }}</td>
+                <td>{{ objective.isBonus? "Yes": "No" }}</td>
+                <td>{{ objective.description }}</td>
+                <td>
+                    {% for skill in objective.skills %}
+                        <span class="badge" style="background-color: {{ skill.color }}; color: black">
+                            {{ skill.name }}
+                        </span>
+                    {% endfor %}
+                </td>
+                <td>
+                    <a class="btn btn-wild-yellow mb-2 w-100" href="{{ path('admin_objective_edit',{id:objective.id}) }}">Update</a>
+                    {% include 'admin_objective/_delete_form.html.twig' %}
+                </td>
+            </tr>
             {% else %}
-                No objective found
             {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('admin_home') }}">back to list</a>
-
-    <a href="{{ path('admin_edit', {'id': checkpoint.id}) }}">edit</a>
-
-    {{ include('admin_checkpoint/_delete_form.html.twig') }}
+            </tbody>
+        </table>
+    <a class="btn btn-primary text-white mb-5" href="{{ path('admin_objective_new',{id:checkpoint.id}) }}">Add an objective</a>
+    </div>
 {% endblock %}

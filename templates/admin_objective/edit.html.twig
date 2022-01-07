@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Objective{% endblock %}
+
+{% block body %}
+    <div class="container w-50">
+        <h1>Update Objective for Checkpoint n°{{ objective.checkpoint.number }} {{ objective.checkpoint.curriculum.name }}</h1>
+        {{ include('admin_objective/_form.html.twig', {'button_label': 'Update'}) }}
+        <a href="{{ path('admin_show',{id:objective.checkpoint.id}) }}">back to list</a>
+    </div>
+{% endblock %}
