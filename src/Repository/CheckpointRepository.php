@@ -19,22 +19,17 @@ class CheckpointRepository extends ServiceEntityRepository
         parent::__construct($registry, Checkpoint::class);
     }
 
-    // /**
-    //  * @return Checkpoint[] Returns an array of Checkpoint objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+      * @return Checkpoint[] Returns an array of Checkpoint objects
+      */
+
+    public function findOrderByNumber()
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+      return $this->findBy([],[
+          'number'=>'ASC'
+      ]);
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Checkpoint

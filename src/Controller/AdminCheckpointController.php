@@ -24,7 +24,7 @@ class AdminCheckpointController extends AbstractController
     public function index(CheckpointRepository $checkpointRepository): Response
     {
         return $this->render('admin_checkpoint/index.html.twig', [
-            'checkpoints' => $checkpointRepository->findAll(),
+            'checkpoints' => $checkpointRepository->findOrderByNumber(),
             'active' => 'checkpoints'
         ]);
     }

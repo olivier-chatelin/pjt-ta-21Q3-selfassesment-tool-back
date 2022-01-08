@@ -18,7 +18,7 @@ class CheckpointController extends AbstractController
      */
     public function index(CheckpointRepository $checkpointRepository, ObjectiveRepository $objectiveRepository): Response
     {
-        $checkpoints = $checkpointRepository->findAll();
+        $checkpoints = $checkpointRepository->findOrderByNumber();
         $encodedCheckpoints = [];
         foreach ($checkpoints as $checkpoint){
             if($checkpoint->getIsVisible()) {
