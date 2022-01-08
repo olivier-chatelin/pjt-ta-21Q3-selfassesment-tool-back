@@ -20,9 +20,9 @@ class ResultController extends AbstractController
     {
         $manager = $doctrine->getManager();
         $guillaume = $doctrine->getRepository(User::class)->findOneBy(['lastname'=>'Harari']);
-        $resultData = $request->getContent();
+        $resultData = json_decode($request->getContent(),true);
         $result = new Result();
-        $result->setSerialized(json_decode($resultData,true));
+        $result->setSerialized($resultData);
         $result->setUser($guillaume);
         $manager->persist($result);
         $manager->flush();

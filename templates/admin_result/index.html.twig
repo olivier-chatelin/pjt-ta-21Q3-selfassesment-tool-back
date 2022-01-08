@@ -5,6 +5,12 @@
 {% block body %}
 <h1>Hello {{ app.user.fullName }}</h1>
     {% for result in app.user.results %}
-    {{ dump(result.serialized) }}
+{#    {{ dump(result) }}#}
+        <h3>Voici les réponses de {{ result.serialized.firstname }} {{ result.serialized.lastname }}</h3>
+        <ul>
+            {% for objective in result.serialized.result_data%}
+                <li>{{ objective.objectiveId }} => {{ objective.isChecked?'oui':'non' }}</li>
+            {% endfor %}
+        </ul>
     {% endfor %}
 {% endblock %}
