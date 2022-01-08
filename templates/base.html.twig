@@ -15,6 +15,11 @@
     {% endblock %}
 </head>
 <body>
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success mb-0">
+            {{ message }}
+        </div>
+    {% endfor %}
     <div class="d-flex">
         {% include 'components/_sidebar.html.twig' %}
         <div class="container-fluid w-100">

@@ -40,7 +40,9 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
+            if(explode('@',$user->getEmail())[1] === "wildcodeschool.com") {
+                $user->setRoles(['ROLE_INSTRUCTOR']);
+            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
@@ -54,7 +56,7 @@ class RegistrationController extends AbstractController
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
             // do anything else you need here, like send an email
-
+            $this->addFlash('success','Un mail de confirmation a été envoyé à ' . $user->getEmail());
             return $this->redirectToRoute('admin_home');
         }
 
