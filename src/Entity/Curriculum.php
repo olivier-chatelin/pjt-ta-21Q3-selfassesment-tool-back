@@ -41,10 +41,6 @@ class Curriculum
      */
     private $updatedAt;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Instructor::class, mappedBy="Curriculum")
-     */
-    private $instructors;
 
     public function __construct()
     {
@@ -141,33 +137,4 @@ class Curriculum
         $this->updatedAt = new \DateTime();
     }
 
-    /**
-     * @return Collection|Instructor[]
-     */
-    public function getInstructors(): Collection
-    {
-        return $this->instructors;
-    }
-
-    public function addInstructor(Instructor $instructor): self
-    {
-        if (!$this->instructors->contains($instructor)) {
-            $this->instructors[] = $instructor;
-            $instructor->setCurriculum($this);
-        }
-
-        return $this;
-    }
-
-    public function removeInstructor(Instructor $instructor): self
-    {
-        if ($this->instructors->removeElement($instructor)) {
-            // set the owning side to null (unless already changed)
-            if ($instructor->getCurriculum() === $this) {
-                $instructor->setCurriculum(null);
-            }
-        }
-
-        return $this;
-    }
 }

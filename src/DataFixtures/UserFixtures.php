@@ -38,7 +38,7 @@ class UserFixtures extends Fixture
         $olivier= new User();
         $olivier->setFirstname('Guillaume');
         $olivier->setLastname('Harari');
-        $olivier->setEmail('guillaume.harari@wilcodeschool.com');
+        $olivier->setEmail('guillaume.harari@wildcodeschool.com');
         $olivier->setPassword($this->hasher->hashPassword($olivier, '123456'));
         $olivier->setRoles(["ROLE_INSTRUCTOR"]);
         $olivier->setIsVerified(true);

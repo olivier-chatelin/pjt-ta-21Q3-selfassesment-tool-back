@@ -10,6 +10,9 @@
         <li><a class="side-link {{ active == 'checkpoints'?'active':'' }}" href="{{ path('admin_home') }}"><i class="far fa-clipboard"></i> Checkpoints</a></li>
         <li><a class="side-link {{ active == 'skills'?'active':'' }}" href="{{ path('admin_skill_index') }}"><i class="fas fa-tag"></i> Skills</a></li>
         <li><a class="side-link side-link {{ active == 'curricula'?'active':'' }}" href="{{ path('admin_curriculum') }}"><i class="fas fa-graduation-cap"></i> Curricula</a></li>
+        {% if is_granted('ROLE_INSTRUCTOR') %}
+        <li><a class="side-link {{ active == 'results'?'active':'' }}" href="{{ path('admin_result_home') }}"><i class="fas fa-poll"></i> Results </a></li>
+        {% endif %}
     </ul>
     <hr>
     {% if app.user %}

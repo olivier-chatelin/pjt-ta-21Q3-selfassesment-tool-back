@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminResultController!{% endblock %}
+
+{% block body %}
+<h1>Hello {{ app.user.fullName }}</h1>
+    {% for result in app.user.results %}
+    {{ dump(result.serialized) }}
+    {% endfor %}
+{% endblock %}
