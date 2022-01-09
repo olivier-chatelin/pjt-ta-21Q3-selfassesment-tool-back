@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository", repositoryClass=UserRepository::class)
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  * @ORM\HasLifecycleCallbacks()
  */
@@ -69,6 +69,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\OneToMany(targetEntity=Result::class, mappedBy="user", orphanRemoval=true)
      */
     private $results;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $fullName;
 
     public function __construct()
     {
@@ -200,7 +205,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
     public function getFullName(): string
     {
-        return $this->firstname . ' ' . $this->lastname;
+        return $this->fullName;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
@@ -235,6 +240,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
+        $this->fullName = $this->firstname . " " . $this->lastname;
     }
 
     /**
@@ -272,6 +278,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $result->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function setFullName(string $fullName): self
+    {
+        $this->fullName = $fullName;
 
         return $this;
     }

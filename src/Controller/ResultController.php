@@ -21,13 +21,13 @@ class ResultController extends AbstractController
     {
         $manager = $doctrine->getManager();
         $checkpointRepository = $manager->getRepository(Checkpoint::class);
-        $guillaume = $doctrine->getRepository(User::class)->findOneBy(['lastname'=>'Harari']);
         $resultData = json_decode($request->getContent());
+        $instructor = $doctrine->getRepository(User::class)->findOneBy(['fullName'=>$resultData->instructor]);
         $result = new Result();
         $result->setStudent($resultData->fullName);
         $result->setCheckpoint($checkpointRepository->findOneBy(['id'=>$resultData->checkpointId]));
         $result->setSerialized($resultData->data);
-        $result->setUser($guillaume);
+        $result->setUser($instructor);
         $manager->persist($result);
         $manager->flush();
         return new JsonResponse('Result ok',200,['Access-Control-Allow-Origin' => '*']);
