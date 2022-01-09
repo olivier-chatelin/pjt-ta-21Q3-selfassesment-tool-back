@@ -34,7 +34,7 @@ class ChartDataRetriever
             $studentData->setStudent($result->getStudent())
                         ->setTotalRegularObjective($totalRegularObjective)
                         ->setTotalRealizedObjective($totalRealizedObjective)
-                        ->setObjectiveRatio($totalRegularObjective === 0?floor(100 * $totalRealizedObjective/$totalRegularObjective):0);
+                        ->setObjectiveRatio($totalRegularObjective !== 0?floor(100 * $totalRealizedObjective/$totalRegularObjective):0);
 
             $progressionData[] = $studentData;
         }
@@ -112,7 +112,7 @@ class ChartDataRetriever
                 $validatedSkills[$name] += $frequency;
             }
             foreach ($studentRadarData->getSkillRatios() as $name => $frequency) {
-                if(count($results !== 0)) {
+                if(count($results )!== 0) {
 
                 $skillRatios[$name] += floor($frequency/count($results));
                 } else{
