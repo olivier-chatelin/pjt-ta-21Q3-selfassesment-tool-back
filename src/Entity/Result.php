@@ -34,6 +34,18 @@ class Result
      */
     private $createdAt;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $student;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Checkpoint::class, inversedBy="results")
+     */
+    private $checkpoint;
+
+
+
 
     public function getSerialized(): ?array
     {
@@ -78,5 +90,31 @@ class Result
     {
         $this->createdAt = new \DateTime();
     }
+
+    public function getStudent(): ?string
+    {
+        return $this->student;
+    }
+
+    public function setStudent(string $student): self
+    {
+        $this->student = $student;
+
+        return $this;
+    }
+
+    public function getCheckpoint(): ?Checkpoint
+    {
+        return $this->checkpoint;
+    }
+
+    public function setCheckpoint(?Checkpoint $checkpoint): self
+    {
+        $this->checkpoint = $checkpoint;
+
+        return $this;
+    }
+
+
 
 }

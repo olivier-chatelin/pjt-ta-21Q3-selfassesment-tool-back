@@ -63,9 +63,15 @@ class Checkpoint implements \JsonSerializable
      */
     private $isVisible;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Result::class, mappedBy="checkpoint")
+     */
+    private $results;
+
     public function __construct()
     {
         $this->Objectives = new ArrayCollection();
+        $this->results = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -231,6 +237,36 @@ class Checkpoint implements \JsonSerializable
     public function setIsVisible(bool $isVisible): self
     {
         $this->isVisible = $isVisible;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Result[]
+     */
+    public function getResults(): Collection
+    {
+        return $this->results;
+    }
+
+    public function addResult(Result $result): self
+    {
+        if (!$this->results->contains($result)) {
+            $this->results[] = $result;
+            $result->setCheckpoint($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResult(Result $result): self
+    {
+        if ($this->results->removeElement($result)) {
+            // set the owning side to null (unless already changed)
+            if ($result->getCheckpoint() === $this) {
+                $result->setCheckpoint(null);
+            }
+        }
 
         return $this;
     }

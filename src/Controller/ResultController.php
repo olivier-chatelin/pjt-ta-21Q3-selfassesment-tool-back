@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Checkpoint;
 use App\Entity\Result;
 use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,10 +20,13 @@ class ResultController extends AbstractController
     public function index(Request $request, ManagerRegistry $doctrine): Response
     {
         $manager = $doctrine->getManager();
+        $checkpointRepository = $manager->getRepository(Checkpoint::class);
         $guillaume = $doctrine->getRepository(User::class)->findOneBy(['lastname'=>'Harari']);
-        $resultData = json_decode($request->getContent(),true);
+        $resultData = json_decode($request->getContent());
         $result = new Result();
-        $result->setSerialized($resultData);
+        $result->setStudent($resultData->fullName);
+        $result->setCheckpoint($checkpointRepository->findOneBy(['id'=>$resultData->checkpointId]));
+        $result->setSerialized($resultData->data);
         $result->setUser($guillaume);
         $manager->persist($result);
         $manager->flush();
