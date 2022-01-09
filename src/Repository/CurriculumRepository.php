@@ -19,22 +19,19 @@ class CurriculumRepository extends ServiceEntityRepository
         parent::__construct($registry, Curriculum::class);
     }
 
-    // /**
-    //  * @return Curriculum[] Returns an array of Curriculum objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+      * @return array Returns an array of Curriculum objects
+      */
+
+    public function findCurriculaNames(): array
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+        $result = $this->createQueryBuilder('c')
+            ->select('c.name')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getSingleColumnResult();
+        return $result;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Curriculum

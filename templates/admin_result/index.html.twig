@@ -6,7 +6,7 @@
 <h1>Hello {{ app.user.fullName }}</h1>
     {% for result in app.user.results %}
 {#    {{ dump(result) }}#}
-        <h3>Voici les réponses de {{ result.serialized.firstname }} {{ result.serialized.lastname }}</h3>
+        <h3>Voici les réponses de {{ result.serialized.fullName }} </h3>
         <ul>
             {% for objective in result.serialized.result_data%}
                 <li>{{ objective.objectiveId }} => {{ objective.isChecked?'oui':'non' }}</li>
