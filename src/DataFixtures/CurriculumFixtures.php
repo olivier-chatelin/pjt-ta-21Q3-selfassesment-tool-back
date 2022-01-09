@@ -20,6 +20,11 @@ class CurriculumFixtures extends Fixture
         $manager->persist($cursus);
         $this->addReference('js',$cursus);
 
+        $cursus = new Curriculum();
+        $cursus->setName('DATA');
+        $manager->persist($cursus);
+        $this->addReference('data',$cursus);
+
 
         $manager->flush();
     }

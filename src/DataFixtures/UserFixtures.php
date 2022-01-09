@@ -45,6 +45,24 @@ class UserFixtures extends Fixture
         $manager->persist($olivier);
 
         $olivier= new User();
+        $olivier->setFirstname('Vincent');
+        $olivier->setLastname('Vaur');
+        $olivier->setEmail('vincent.vaur@wildcodeschool.com');
+        $olivier->setPassword($this->hasher->hashPassword($olivier, '123456'));
+        $olivier->setRoles(["ROLE_INSTRUCTOR"]);
+        $olivier->setIsVerified(true);
+        $manager->persist($olivier);
+
+        $olivier= new User();
+        $olivier->setFirstname('Jonathan');
+        $olivier->setLastname('Siaut');
+        $olivier->setEmail('jonathan.siaut@wildcodeschool.com');
+        $olivier->setPassword($this->hasher->hashPassword($olivier, '123456'));
+        $olivier->setRoles(["ROLE_INSTRUCTOR"]);
+        $olivier->setIsVerified(true);
+        $manager->persist($olivier);
+
+        $olivier= new User();
         $olivier->setFirstname('Simple');
         $olivier->setLastname('Admin');
         $olivier->setEmail('admin.admin@gmail.com');
