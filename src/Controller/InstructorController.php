@@ -20,10 +20,10 @@ class InstructorController extends AbstractController
         $names = [];
         foreach ($users as $user) {
             if(in_array('ROLE_INSTRUCTOR',$user->getRoles())) {
-                $names[] = $user->getFullName();
+                $names[] =  $user->getFullName();
             }
         }
-        return new JsonResponse(json_encode($names),200,['Access-Control-Allow-Origin' => '*']);
+        return new JsonResponse($names,200,['Access-Control-Allow-Origin' => '*']);
 
     }
 }

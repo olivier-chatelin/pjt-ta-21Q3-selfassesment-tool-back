@@ -17,6 +17,6 @@ class CurriculumController extends AbstractController
     public function index(ManagerRegistry $managerRegistry): Response
     {
         $names = $managerRegistry->getRepository(Curriculum::class)->findCurriculaNames();
-        return new JsonResponse(json_encode($names),200,['Access-Control-Allow-Origin' => '*']);
+        return new JsonResponse($names,200,['Access-Control-Allow-Origin' => '*']);
     }
 }
